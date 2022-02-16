@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31829.152
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentalOfPremisesAPI", "RentalOfPremisesAPI\RentalOfPremisesAPI.csproj", "{C9C7CFB1-34E8-45FF-85CF-8B042A24FA23}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C9C7CFB1-34E8-45FF-85CF-8B042A24FA23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9C7CFB1-34E8-45FF-85CF-8B042A24FA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9C7CFB1-34E8-45FF-85CF-8B042A24FA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9C7CFB1-34E8-45FF-85CF-8B042A24FA23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B2CE7ABF-F878-4747-BA15-EB1AEDEF37D0}
+	EndGlobalSection
+EndGlobal
