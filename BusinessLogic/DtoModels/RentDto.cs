@@ -1,13 +1,14 @@
-﻿using DataAccess.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Entityes
+namespace BusinessLogic.DtoModels
 {
-    public class Rent : BaseModel
+    public class RentDto
     {
+        public int Id { get; set; }
         public int OutletId { set; get; }
 
         public int ClientId { set; get; }
@@ -15,11 +16,5 @@ namespace DataAccess.Entityes
         public DateTime DateOfStart { get; set; }
 
         public DateTime DateOfEnd { get; set; }
-
-        public Outlet Outlet { get; set; }
-
-        public Client Client { get; set; }
-
-        public List<Payment> Payments { get; set; } = new List<Payment>();
     }
 }

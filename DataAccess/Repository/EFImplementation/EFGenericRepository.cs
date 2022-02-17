@@ -1,4 +1,5 @@
 ﻿using DataAccess.DataAccess;
+using DataAccess.Entities;
 using DataAccess.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repository.EFImplementation
 {
-    public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity: class
+    public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity: BaseModel
     {
         private DataBaseContext _context;
 
@@ -32,7 +33,7 @@ namespace DataAccess.Repository.EFImplementation
         }
         public async Task<TEntity> FindById(int id)
         {
-            return await _dbSet.FindAsync(id);
+            return await _dbSet.FirstOrDefaultAsync(e => e.Id == id);
         }
 
         public async Task Create(TEntity item)
@@ -40,13 +41,19 @@ namespace DataAccess.Repository.EFImplementation
             await _dbSet.AddAsync(item);
         }
 
-        public void Update(TEntity item)
+        public async Task Update(TEntity item)
         {
-            _context.Entry(item).State = EntityState.Modified;
+            var toUpdate = await _dbSet.AsNoTracking().FirstOrDefaultAsync(e => e.Id == item.Id);
+
+            if (toUpdate is not null)
+                _context.Entry(item).State = EntityState.Modified;
+            else 
+                throw new ArgumentNullException($"Not found updating entity with ID={item.Id}");
         }
 
-        public void Remove(TEntity item)
+        public async Task Remove(int id)
         {
+            var item = await _dbSet.FindAsync(id);
             _dbSet.Remove(item);
         }
 

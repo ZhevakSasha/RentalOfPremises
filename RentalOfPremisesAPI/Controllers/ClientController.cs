@@ -1,15 +1,14 @@
-﻿using BusinessLogic.Services;
+﻿using BusinessLogic.DtoModels;
+using BusinessLogic.Services;
 using DataAccess.Entityes;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RentalOfPremisesAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/client")]
     [ApiController]
     public class ClientController : ControllerBase
     {
@@ -20,7 +19,7 @@ namespace RentalOfPremisesAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IList<Client>>> GetAllClients()
+        public async Task<ActionResult<IList<ClientDto>>> GetAllClients()
         {
             var clients = await _clientService.GetAllClients();
 
@@ -34,7 +33,7 @@ namespace RentalOfPremisesAPI.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<ActionResult<Client>> GetClientById(int id)
+        public async Task<ActionResult<ClientDto>> GetClientById(int id)
         {
             var client = await _clientService.GetClientById(id);
 
@@ -47,11 +46,42 @@ namespace RentalOfPremisesAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateClient([FromBody] Client client)
+        public async Task<IActionResult> CreateClient([FromBody] ClientDto clientDto)
         {
-            await _clientService.AddClient(client);
-            return CreatedAtAction(nameof(GetClientById), new { Id = client.Id }, client);
+            await _clientService.AddClient(clientDto);
+
+            return CreatedAtAction(nameof(GetClientById), new { Id = clientDto.Id }, clientDto);
         }
 
+        [HttpPut]
+        public async Task<IActionResult> UpdateClient([FromBody] ClientDto clientDto)
+        {
+            try
+            {
+                await _clientService.UpdateClient(clientDto);
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound();
+            }
+            
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteClient(int id)
+        {
+            var clientDelete = await _clientService.GetClientById(id);
+
+            if (clientDelete == null)
+            {
+                return NotFound();
+            }
+
+            await _clientService.DeleteClient(id);
+
+            return NoContent();
+        }
     }
 }

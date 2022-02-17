@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
+
 namespace RentalOfPremisesAPI
 {
     public class Startup
@@ -28,6 +29,11 @@ namespace RentalOfPremisesAPI
             services.AddScoped<UnitOfWork>();
 
             services.AddTransient<ClientService>();
+            services.AddTransient<OutletService>();
+            services.AddTransient<RentService>();
+            services.AddTransient<PaymentService>();
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 

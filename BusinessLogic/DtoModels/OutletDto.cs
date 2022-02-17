@@ -1,13 +1,14 @@
-﻿using DataAccess.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Entityes
+namespace BusinessLogic.DtoModels
 {
-    public class Outlet : BaseModel
+    public class OutletDto
     {
+        public int Id { get; set; }
         public int Floor { get; set; }
 
         public int Square { get; set; }
@@ -15,8 +16,5 @@ namespace DataAccess.Entityes
         public decimal RentalCostPerDay { get; set; }
 
         public bool IsOccupied { get; set; }
-
-        public Rent Rent { get; set; }
-
     }
 }

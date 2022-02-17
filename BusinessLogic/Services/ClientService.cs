@@ -1,9 +1,8 @@
-﻿using DataAccess;
+﻿using AutoMapper;
+using BusinessLogic.DtoModels;
+using DataAccess;
 using DataAccess.Entityes;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
@@ -12,36 +11,43 @@ namespace BusinessLogic.Services
     {
         private UnitOfWork _unitOfWork;
 
-        public ClientService(UnitOfWork unitOfWork)
+        private IMapper _mapper;
+
+        public ClientService(UnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<IList<Client>> GetAllClients()
+        public async Task<IList<ClientDto>> GetAllClients()
         {
-            return await _unitOfWork.Clients.Get();
+            var clients = await _unitOfWork.Clients.Get();
+            return _mapper.Map<IList<ClientDto>>(clients);
         }
 
-        public async Task AddClient(Client client)
+        public async Task AddClient(ClientDto clientDto)
         {
+            var client = _mapper.Map<Client>(clientDto);
             await _unitOfWork.Clients.Create(client);
             _unitOfWork.Save();
         }
 
-        public void UpdateClient(Client client)
+        public async Task UpdateClient(ClientDto clientDto)
         {
-            _unitOfWork.Clients.Update(client);
+             var client = _mapper.Map<Client>(clientDto);
+             await _unitOfWork.Clients.Update(client);
             _unitOfWork.Save();
         }
 
-        public Task<Client> GetClientById(int id)
+        public async Task<ClientDto> GetClientById(int id)
         {
-            return _unitOfWork.Clients.FindById(id);
+            var client = await _unitOfWork.Clients.FindById(id);
+            return _mapper.Map<ClientDto>(client);
         }
 
-        public void DeleteClient(Client client)
+        public async Task DeleteClient(int id)
         {
-            _unitOfWork.Clients.Remove(client);
+            await _unitOfWork.Clients.Remove(id);
             _unitOfWork.Save();
         }
     }
