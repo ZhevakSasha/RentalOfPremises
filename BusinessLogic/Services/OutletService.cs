@@ -2,10 +2,7 @@
 using BusinessLogic.DtoModels;
 using DataAccess;
 using DataAccess.Entityes;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Services

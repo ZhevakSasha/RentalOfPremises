@@ -1,11 +1,8 @@
 ﻿using BusinessLogic.DtoModels;
 using BusinessLogic.Services;
-using DataAccess.Entityes;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RentalOfPremisesAPI.Controllers

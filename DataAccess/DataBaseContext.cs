@@ -1,9 +1,5 @@
 ﻿using DataAccess.Entityes;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DataAccess.DataAccess
 {
@@ -17,7 +13,6 @@ namespace DataAccess.DataAccess
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer("Data Source=localhost,1433;Initial Catalog=TestOnlineStore;User ID=sa;Password=pa55w0rd!;");
-
         }
 
         public DbSet<Client> Clients { get; set; }

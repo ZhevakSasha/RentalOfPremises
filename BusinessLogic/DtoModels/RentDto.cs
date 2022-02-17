@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic.DtoModels
 {
@@ -15,6 +11,6 @@ namespace BusinessLogic.DtoModels
 
         public DateTime DateOfStart { get; set; }
 
-        public DateTime DateOfEnd { get; set; }
+        public Decimal DownPayment { get; set; }
     }
 }

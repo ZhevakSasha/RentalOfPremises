@@ -2,10 +2,7 @@
 using BusinessLogic.DtoModels;
 using DataAccess;
 using DataAccess.Entityes;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
@@ -29,9 +26,28 @@ namespace BusinessLogic.Services
         }
 
         public async Task AddRent(RentDto rentDto)
-        {
+        {   
             var rent = _mapper.Map<Rent>(rentDto);
+
+            var paymentPerDay = (await _unitOfWork.Outlets.FindById(rentDto.OutletId)).RentalCostPerDay;
+
+            int rentDays = (int)(rentDto.DownPayment / paymentPerDay);
+            decimal balance = rentDto.DownPayment - (rentDays * paymentPerDay);
+
+            rent.DateOfEnd.AddDays(rentDays);
+
             await _unitOfWork.Rents.Create(rent);
+
+            _unitOfWork.Save();
+
+            var paymentDto = new PaymentDto { 
+                RentId = rent.Id, 
+                Date = rent.DateOfStart,
+                Contribution = rentDto.DownPayment
+            };
+
+            await _unitOfWork.Payments.Create(_mapper.Map<Payment>(paymentDto));
+
             _unitOfWork.Save();
         }
 
