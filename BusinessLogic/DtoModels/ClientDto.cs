@@ -4,6 +4,7 @@ namespace BusinessLogic.DtoModels
     public class ClientDto
     {
         public int Id { get; set; }
+
         public string CompanyName { get; set; }
 
         public string Address { get; set; }

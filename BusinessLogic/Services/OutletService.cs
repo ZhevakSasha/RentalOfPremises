@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
 using BusinessLogic.DtoModels;
 using DataAccess;
-using DataAccess.Entityes;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DataAccess.Entities;
 
 namespace BusinessLogic.Services
 {
     public class OutletService
     {
-        private UnitOfWork _unitOfWork;
+        private readonly UnitOfWork _unitOfWork;
 
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public OutletService(UnitOfWork unitOfWork, IMapper mapper)
         {

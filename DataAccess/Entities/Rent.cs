@@ -1,11 +1,12 @@
-﻿using DataAccess.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace DataAccess.Entityes
+namespace DataAccess.Entities
 {
-    public class Rent : BaseModel
+    public class Rent : IBaseModel
     {
+        public int Id { get; set; }
+
         public int OutletId { set; get; }
 
         public int ClientId { set; get; }

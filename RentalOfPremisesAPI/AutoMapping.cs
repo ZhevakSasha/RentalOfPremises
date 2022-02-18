@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLogic.DtoModels;
-using DataAccess.Entityes;
+using DataAccess.Entities;
 
 namespace RentalOfPremisesAPI
 {

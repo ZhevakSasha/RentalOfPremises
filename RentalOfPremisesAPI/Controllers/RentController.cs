@@ -64,7 +64,6 @@ namespace RentalOfPremisesAPI.Controllers
                 return NotFound();
             }
 
-
             return NoContent();
         }
 

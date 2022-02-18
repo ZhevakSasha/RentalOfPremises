@@ -1,5 +1,4 @@
-﻿using DataAccess.DataAccess;
-using DataAccess.Entityes;
+﻿using DataAccess.Entities;
 
 namespace DataAccess.Repository.EFImplementation
 {

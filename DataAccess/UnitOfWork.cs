@@ -1,79 +1,48 @@
-﻿using DataAccess.DataAccess;
-using DataAccess.Repository.EFImplementation;
+﻿using DataAccess.Repository.EFImplementation;
 using System;
+using DataAccess.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace DataAccess
 {
     public class UnitOfWork : IDisposable
     {
-        private DataBaseContext _context;
+        private readonly DataBaseContext _context;
 
-        private EFClientRepository clientRepository;
-        private EFOutletRepository outletRepository;
-        private EFPaymentRepository paymentRepository;
-        private EFRentRepository rentRepository;
+        private EFClientRepository _clientRepository;
+        private EFOutletRepository _outletRepository;
+        private EFPaymentRepository _paymentRepository;
+        private EFRentRepository _rentRepository;
 
         public UnitOfWork(DataBaseContext context)
         {
             _context = context;
         }
 
-        public EFClientRepository Clients
-        {
-            get
-            {
-                if (clientRepository == null)
-                    clientRepository = new EFClientRepository(_context);
-                return clientRepository;
-            }
-        }
+        public EFClientRepository Clients => _clientRepository ??= new EFClientRepository(_context);
 
-        public EFOutletRepository Outlets
-        {
-            get
-            {
-                if (outletRepository == null)
-                    outletRepository = new EFOutletRepository(_context);
-                return outletRepository;
-            }
-        }
+        public EFOutletRepository Outlets => _outletRepository ??= new EFOutletRepository(_context);
 
-        public EFPaymentRepository Payments
-        {
-            get
-            {
-                if (paymentRepository == null)
-                    paymentRepository = new EFPaymentRepository(_context);
-                return paymentRepository;
-            }
-        }
+        public EFPaymentRepository Payments => _paymentRepository ??= new EFPaymentRepository(_context);
 
-        public EFRentRepository Rents
-        {
-            get
-            {
-                if (rentRepository == null)
-                    rentRepository = new EFRentRepository(_context);
-                return rentRepository;
-            }
-        }
+        public EFRentRepository Rents => _rentRepository ??= new EFRentRepository(_context);
 
         public void Save()
         {
             _context.SaveChanges();
         }
 
-        private bool disposed = false;
+        private bool _disposed = false;
 
         public virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!this._disposed)
             {
                 if (disposing)
                 {
                     _context.Dispose();
                 }
-                this.disposed = true;
+                this._disposed = true;
             }
         }
 

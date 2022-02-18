@@ -1,10 +1,11 @@
-﻿using DataAccess.Entities;
-using System;
+﻿using System;
 
-namespace DataAccess.Entityes
+namespace DataAccess.Entities
 {
-    public class Payment : BaseModel
+    public class Payment : IBaseModel
     {
+        public int Id { get; set; }
+
         public int RentId { get; set; }
 
         public DateTime Date { get; set; }

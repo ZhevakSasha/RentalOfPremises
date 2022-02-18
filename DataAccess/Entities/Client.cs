@@ -1,9 +1,11 @@
-﻿using DataAccess.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
-namespace DataAccess.Entityes
+namespace DataAccess.Entities
 {
-    public class Client : BaseModel
+    public class Client : IdentityUser<int>, IBaseModel
     {
         public string CompanyName { get; set; }
 

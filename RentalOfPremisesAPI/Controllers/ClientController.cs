@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.DtoModels;
 using BusinessLogic.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -45,11 +46,12 @@ namespace RentalOfPremisesAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateClient([FromBody] ClientDto clientDto)
+        [Route("register")]
+        public async Task<IActionResult> RegisterClient([FromBody] RegisterDto registerDto)
         {
-            await _clientService.AddClient(clientDto);
+            var result = await _clientService.Register(registerDto); 
 
-            return CreatedAtAction(nameof(GetClientById), new { Id = clientDto.Id }, clientDto);
+            return !result.Succeeded ? StatusCode(StatusCodes.Status500InternalServerError, result) : Ok(result);
         }
 
         [HttpPut]

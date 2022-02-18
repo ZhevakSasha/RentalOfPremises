@@ -1,6 +1,6 @@
-﻿using DataAccess.DataAccess;
-using DataAccess.Entities;
+﻿using DataAccess.Entities;
 using DataAccess.Repository.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repository.EFImplementation
 {
-    public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity: BaseModel
+    public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity: class, IBaseModel
     {
-        private DataBaseContext _context;
+        private readonly DataBaseContext _context;
 
-        private DbSet<TEntity> _dbSet;
+        private readonly DbSet<TEntity> _dbSet;
 
         public EFGenericRepository(DataBaseContext context)
         {

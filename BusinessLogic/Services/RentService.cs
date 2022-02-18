@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
 using BusinessLogic.DtoModels;
 using DataAccess;
-using DataAccess.Entityes;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DataAccess.Entities;
 
 namespace BusinessLogic.Services
 {
     public class RentService
     {
-        private UnitOfWork _unitOfWork;
+        private readonly UnitOfWork _unitOfWork;
 
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public RentService(UnitOfWork unitOfWork, IMapper mapper)
         {
@@ -31,8 +31,8 @@ namespace BusinessLogic.Services
 
             var paymentPerDay = (await _unitOfWork.Outlets.FindById(rentDto.OutletId)).RentalCostPerDay;
 
-            int rentDays = (int)(rentDto.DownPayment / paymentPerDay);
-            decimal balance = rentDto.DownPayment - (rentDays * paymentPerDay);
+            var rentDays = (int)(rentDto.DownPayment / paymentPerDay);
+            var balance = rentDto.DownPayment - (rentDays * paymentPerDay);
 
             rent.DateOfEnd.AddDays(rentDays);
 
