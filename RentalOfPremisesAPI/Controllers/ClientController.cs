@@ -53,6 +53,15 @@ namespace RentalOfPremisesAPI.Controllers
 
             return !result.Succeeded ? StatusCode(StatusCodes.Status500InternalServerError, result) : Ok(result);
         }
+        
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        {
+            var result = await _clientService.Login(loginDto); 
+
+            return !result.Succeeded ? Unauthorized() : Ok(result);
+        }
 
         [HttpPut]
         public async Task<IActionResult> UpdateClient([FromBody] ClientDto clientDto)
